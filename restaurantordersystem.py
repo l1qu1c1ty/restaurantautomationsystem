@@ -9,25 +9,22 @@ class RestaurantOrderSystem():
     # Instance Constructor
     def __init__(self, name):
         self.name = name
-        self.menu = ['Fries', 'Sandwich', 'Cheeseburger', 'Coffee', 'Soda']
-        self.price = ['19.99$', '24.99$', '14.99$', '7.99$', '4.99$']
-        self.menu_price = {
-            self.menu[0]: self.price[0],
-            self.menu[1]: self.price[1],
-            self.menu[2]: self.price[2],
-            self.menu[3]: self.price[3],
-            self.menu[4]: self.price[4],
+        self.menu = {
+            'Fries':         19.99,
+            'Sandwich':      24.99,
+            'Cheeseburger':  14.99,
+            'Coffee':         7.99,
+            'Soda':           4.99,
         }
 
     # Specifies customer order
     def customer(self, order):
         try:
-            menu_choice = self.menu[order]
             print("="*50)
-            print(f"The Menu: {menu_choice} {self.menu_price[menu_choice]}")
+            print(f"The Menu: {order} - {self.menu[order]}$")
             print("="*50)
 
-        except IndexError:
+        except KeyError:
             print("Item not found in the menu.")
 
         else:
@@ -39,7 +36,7 @@ class RestaurantOrderSystem():
     def display_menu(self):
         print("="*30)
         for index, food in enumerate(self.menu, start=1):
-            price = self.menu_price[food]
+            price = self.menu[food]
             print("{:<0}. {:<20} {:<10}".format(index, food, price))
         print("="*30)
 
@@ -76,14 +73,13 @@ def main():
         greeting.greeting()
         customer_name = input("Hello there! What's your name ? \n\n")
         print(color.LIGHTBLUE_EX)
-        order = RestaurantOrderSystem(customer_name)
+        order = RestaurantOrderSystem(customer_name)   
         username = input("Username: ")
         password = input("Password: ")
-        order.login_interface(username=username, password=password)
+        order.login_interface(username, password)
         order.display_menu()
         print(color.LIGHTGREEN_EX)
-        customers_order = int(input("Please enter order menu number: "))
-        customers_order = customers_order - 1
+        customers_order = input("Please enter order menu: ")
         order.customer(customers_order)
         input()
         command("cls")
