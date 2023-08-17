@@ -3,43 +3,62 @@
 from pyfiglet import figlet_format as figlet
 from colorama import Fore as color
 from os import system as command
-
+import sqlite3 as sql
 # Here is the Class name RestaurantMenu
 class RestaurantOrderSystem():
     # Instance Constructor
     def __init__(self, name):
         self.name = name
-        self.menu = {
-            'Cheeseburger':  24.99,
-            'Sandwich':      19.99,
-            'Fries':         16.99,
-            'Coffee':        12.99,
-            'Soda':          10.99,
-        }
+        self.menu = {}
 
+        try:
+            connection = sql.connect("restaurant.db")
+            c = connection.cursor()
+            c.execute("SELECT name, price FROM menu")
+            menu_data = c.fetchall()
+
+            for name, price in menu_data:
+                self.menu[name] = price
+        except sql.Error as e:
+            print("An error occurred while fetching the menu:", e)
+        
+        finally:
+            connection.close()
+ 
     # Specifies customer order
     def customer(self, order):
-        try:
-            self.order = order # Store the order as an attribute
-            print("="*50)
-            print(f"The Menu: {order} - ${self.menu[order]:.2f}")
-            print("="*50)
-
-        except KeyError:
-            print("Please choose another item from the menu.")
-
-        else:
-            print(f"Thanks for your order. {self.name}")
+        price = self.menu.get(order)
+        if price is not None:
+            self.order = order
+            print("=" * 50)
+            print("The Menu: {} - ${}".format(order, price))
+            print("=" * 50)
+            print("Thanks for your order, {}!".format(self.name))
             print("Your order will be ready in ~10 minutes.")
-            print("="*50)
+            print("=" * 50)
+            
+        else:
+            print("Please choose another item from the menu.")
 
     # Displays the menu on the screen
     def display_menu(self):
-        print("="*30)
-        for index, food in enumerate(self.menu, start=1):
-            price = self.menu[food]
-            print("{:<0}. {:<20} {:<5}$".format(index, food, price))
-        print("="*30)
+        try:
+            connection = sql.connect("restaurant.db")
+            c = connection.cursor()
+
+            c.execute("SELECT name, price FROM menu")
+            menu_data = c.fetchall()
+
+            print("=" * 30)
+            for index, (name, price) in enumerate(menu_data, start=1):
+                print("{:<0}. {:<20} {:<5}$".format(index, name, price))
+            print("=" * 30)
+        
+        except sql.Error as e:
+            print("An error occurred:", e)
+        
+        finally:
+            connection.close()
 
     # Welcome Message to Customer
     def greeting(self):
@@ -48,9 +67,10 @@ class RestaurantOrderSystem():
 
     # An empty payment function but this will be completed in the future
     def payment(self, payment_method, balance):
+        prices = float(self.menu[self.order])
         if payment_method == "Creditcard":
-            if balance >= self.menu[self.order]:
-                balance -= self.menu[self.order]
+            if balance >= prices:
+                balance -= prices
                 print("Payment Confirmed.")
                 print("Thank you for choosing us.")
                 print("Have a nice day!")
@@ -58,8 +78,8 @@ class RestaurantOrderSystem():
                 print("Insufficient Balance!")
                 print("Please Try Again or Change Payment Method!")
         elif payment_method == "Cash":
-            if balance >= self.menu[self.order]:
-                balance -= self.menu[self.order]
+            if balance >= prices:
+                balance -= prices
                 print("Thanks for your payment!")
                 print("Thank you for choosing us.")
                 print("Have a nice day!")
@@ -81,18 +101,30 @@ class RestaurantOrderSystem():
 
 
     def login_interface(self, username, password):
-        admin = "Micheal"
-        admin_password = "1Sw0rd!2023"
-        if username == admin and password == admin_password:
-            print(f"Welcome {self.name}")
-            print("You have successfully logged in!")
+        try:
+            connection = sql.connect("restaurant.db")
+            c = connection.cursor()
 
-        elif username == "" or password == "":
-            print("Welcome Guest")
+            c.execute("SELECT username, password FROM login WHERE username = ?", (username,))
+            row = c.fetchone()
 
-        else:
-            print("You entered the username or password incorrectly.")
-            print("Continuing with Guest session.Thank you")
+            if row:
+                db_username, db_password = row
+                if (username == db_username and password == db_password):
+                    print("Welcome {}".format(self.name))
+                    print("You have successfully logged in!")
+                else:
+                    print("Incorrect password.")
+                    print("Continuing with Guest account!")
+            else:
+                print("User not found.")
+                print("Continuing with Guest account.")
+        
+        except sql.Error as e:
+            print("An error occurred:", e)
+        
+        finally:
+            connection.close()
 
 # Here is the Main Function
 def main():
