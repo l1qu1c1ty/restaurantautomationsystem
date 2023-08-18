@@ -12,19 +12,17 @@ class RestaurantOrderSystem():
         self.menu = {}
 
         try:
-            connection = sql.connect("restaurant.db")
-            c = connection.cursor()
-            c.execute("SELECT name, price FROM menu")
-            menu_data = c.fetchall()
+            self.connection = sql.connect("restaurant.db")
+            self.c = self.connection.cursor()
+            self.c.execute("SELECT name, price FROM menu")
+            self.menu_data = self.c.fetchall()
 
-            for name, price in menu_data:
+            for name, price in self.menu_data:
                 self.menu[name] = price
+       
         except sql.Error as e:
             print("An error occurred while fetching the menu:", e)
-        
-        finally:
-            connection.close()
- 
+
     # Specifies customer order
     def customer(self, order):
         price = self.menu.get(order)
@@ -43,22 +41,13 @@ class RestaurantOrderSystem():
     # Displays the menu on the screen
     def display_menu(self):
         try:
-            connection = sql.connect("restaurant.db")
-            c = connection.cursor()
-
-            c.execute("SELECT name, price FROM menu")
-            menu_data = c.fetchall()
-
             print("=" * 30)
-            for index, (name, price) in enumerate(menu_data, start=1):
+            for index, (name, price) in enumerate(self.menu_data, start=1):
                 print("{:<0}. {:<20} {:<5}$".format(index, name, price))
             print("=" * 30)
         
         except sql.Error as e:
             print("An error occurred:", e)
-        
-        finally:
-            connection.close()
 
     # Welcome Message to Customer
     def greeting(self):
@@ -88,25 +77,22 @@ class RestaurantOrderSystem():
                 print("Please Try Again or Change Payment Method!")
     
     # Will be arranged soon for refund system
-    def refund():
+    def refund(self):
         pass    
     
     # Will be arranged soon for the waiter tip system
-    def waitress_tips():
+    def waitress_tips(self):
         pass
     
     # Will be arranged soon for the invoice system
-    def invoice():
+    def invoice(self):
         pass
 
 
     def login_interface(self, username, password):
         try:
-            connection = sql.connect("restaurant.db")
-            c = connection.cursor()
-
-            c.execute("SELECT username, password FROM login WHERE username = ?", (username,))
-            row = c.fetchone()
+            self.c.execute("SELECT username, password FROM login WHERE username = ?", (username,))
+            row = self.c.fetchone()
 
             if row:
                 db_username, db_password = row
@@ -124,7 +110,7 @@ class RestaurantOrderSystem():
             print("An error occurred:", e)
         
         finally:
-            connection.close()
+            self.connection.close()
 
 # Here is the Main Function
 def main():
