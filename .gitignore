@@ -1,0 +1,7 @@
+copydelete.py
+__pycache__
+database.py
+login.py
+main.py
+system.py
+*.pyc
