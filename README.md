@@ -5,6 +5,8 @@ Simple Restaurant Automation System
 - Order Selection
 - Choice of Credit Card or Cash
 - Payment screen
+- Waitress Tip
+- Invoice screen 
 
 The database gets data with sqlite3.
 Login , username , password
