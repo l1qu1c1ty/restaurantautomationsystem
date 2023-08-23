@@ -26,7 +26,14 @@ class RestaurantOrderSystem():
     # Specifies customer order
     def customer(self, order):
         while True:
-            price = self.menu.get(order)
+            cleaned_order = order.strip().lower()
+            
+            price = None
+            for menu_item, item_price in self.menu.items():
+                if cleaned_order == menu_item.lower():
+                    price = item_price
+                    break
+
             if price is not None:
                 self.order = order
                 self.order_price = price
@@ -49,7 +56,7 @@ class RestaurantOrderSystem():
             for index, (name, price) in enumerate(self.menu_data, start=1):
                 print("{:<0}. {:<20} {:<5}$".format(index, name, price))
             print("=" * 30)
-        
+
         except sql.Error as e:
             print("An error occurred:", e)
 
@@ -62,7 +69,7 @@ class RestaurantOrderSystem():
     def payment(self, payment_method, balance):
         prices = float(self.menu[self.order])
         self.balance = balance
-        if payment_method == "Creditcard":
+        if payment_method == "Creditcard" or payment_method == "Cash":
             if balance >= prices:
                 balance -= prices - self.tip
                 print("Payment Confirmed.")
@@ -71,17 +78,7 @@ class RestaurantOrderSystem():
             else:
                 print("Insufficient Balance!")
                 print("Please Try Again or Change Payment Method!")
-        
-        elif payment_method == "Cash":
-            if balance >= prices:
-                balance -= prices - self.tip
-                print("Thanks for your payment!")
-                print("Thank you for choosing us.")
-                print("Have a nice day!")
-            else:
-                print("Insufficient Balance!")
-                print("Please Try Again or Change Payment Method!")
-    
+
     # Will be arranged soon for refund system
     def refund(self):
         pass    
@@ -91,11 +88,11 @@ class RestaurantOrderSystem():
         print("-"*50)
         if balance >= float(self.order_price) + self.tip and tip >= 0:
             print(f"{self.name} Thanks for the tips.")
-            print(f"Tip: {tip}")
+            print(f"Tip: ${self.tip:.2f}")
         
         else:
-            print("Balance is not enough to pay the tip insufficient!")
-            print(f"Tip is invalid! ${int(tip)}")
+            print("Balance is not enough to pay the tip.")
+            print(f"Tip is invalid: ${self.tip:.2f}")
         print("-"*50)
     
     def invoice(self, payment_method):
@@ -115,8 +112,13 @@ class RestaurantOrderSystem():
             "{:<30}{}".format("Payment Method:", str(payment_method)),
             separator,
             ]
-            print("\n".join(invoice_lines))
-
+            
+            for line in invoice_lines:
+                print(line)
+        
+        else:
+            print("Insufficient payment for the order")
+    
     def login_interface(self, username, password):
         try:
             self.c.execute("SELECT username, password FROM login WHERE username = ?", (username,))
@@ -144,12 +146,13 @@ class RestaurantOrderSystem():
 def main():
     try:
         while True:
+            command("cls")
             print(color.LIGHTGREEN_EX)
             print(figlet("Welcome Restaurant"))
             greeting = RestaurantOrderSystem("")
             print(color.YELLOW)
             greeting.greeting()
-            customer_name = input("Hello there! What's your name ? \n\n")
+            customer_name = input("Hello there! What is your name?\n\n")
             print(color.LIGHTBLUE_EX)
             order = RestaurantOrderSystem(customer_name)   
             username = input("Username: ")
@@ -159,9 +162,9 @@ def main():
             print(color.LIGHTGREEN_EX)
             customers_order = input("Please enter order menu: ").capitalize()
             order.customer(customers_order)
-            customer_payment = input("How would you like to make your payment ? ").capitalize()
-            customer_balance = float(input("Enter the amount to pay: "))
-            customer_tip = float(input("Would you like to tip? (default = 0): "))
+            customer_payment = input("Cash or Creditcard:").capitalize()
+            customer_balance = float(input("Enter the amount to pay $"))
+            customer_tip = float(input("Would you like to tip $"))
             order.waitress_tips(customer_tip, customer_balance)
             order.payment(customer_payment, customer_balance)
             order.invoice(customer_payment)
@@ -169,6 +172,24 @@ def main():
             if exit_question == "Q":
                 break
             command("cls")
+    
+    except KeyboardInterrupt:
+        print("\n")
+        print("="*50)
+        print("Exiting the Program...")
+        print("="*50)
+        input()
+        command("cls")
+        print(figlet("Good Bye"))
+
+    except EOFError:
+        print("\n")
+        print("="*50)
+        print("Exiting the Program...")
+        print("="*50)
+        input()
+        command("cls")
+        print(figlet("Good Bye"))
 
     except Exception as e:
         print(e)
