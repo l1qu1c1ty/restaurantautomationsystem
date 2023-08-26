@@ -5,3 +5,4 @@ login.py
 main.py
 system.py
 *.pyc
+.vscode
