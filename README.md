@@ -8,8 +8,9 @@ Simple Restaurant Automation System
 - Waitress Tip
 - Invoice screen 
 
-It was named version 1.3.0.
-The interface system has been made more stable.
-Added Admin and UserManagement classes.
-The RestaurantOrderInterface Class is controlling the interface.
-Database logic added as module.
+- Improvements and Fixes
+* It was named version 1.3.0.
+* The interface system has been made more stable.
+* Added Admin and UserManagement classes.
+* The RestaurantOrderInterface Class is controlling the interface.
+* Database logic added as module.
