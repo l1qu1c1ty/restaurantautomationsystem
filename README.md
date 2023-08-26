@@ -8,12 +8,6 @@ Simple Restaurant Automation System
 - Waitress Tip
 - Invoice screen 
 
-The database gets data with sqlite3.
-Login , username , password
-Menu  , name , price
-
-refund methods will be added later.
-
 It was named version 1.3.0.
 The interface system has been made more stable.
 Added Admin and UserManagement classes.
