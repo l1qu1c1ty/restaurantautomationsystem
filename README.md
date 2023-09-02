@@ -1,4 +1,4 @@
-This project is under the GPL 3.0 License 🔓
+🔓 This project is under the GPL 3.0 License 🔓
 
   🎈 Simple Restaurant Automation System 🎈
 
@@ -11,7 +11,7 @@ This project is under the GPL 3.0 License 🔓
  - Waitress Tip                     🫙
  - Invoice screen                   💵
 
-- Improvements and Fixes
+- Improvements and Fixes ✅
   * It was named version 1.3.4.
   * The interface system has been made more stable.
   * Added Admin and UserManagement classes.
