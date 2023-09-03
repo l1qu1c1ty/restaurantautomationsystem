@@ -6,7 +6,7 @@
  - Login screen                     🔒
  - Menu List and prices             🛒
  - Order Selection                  💰
- - Choice of Credit Card or Cash    💲 💳
+ - Choice of Credit Card or Cash    💲
  - Payment screen                   🛍️
  - Waitress Tip                     🫙
  - Invoice screen                   💵
