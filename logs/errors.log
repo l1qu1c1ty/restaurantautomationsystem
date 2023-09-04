@@ -1,6 +1,18 @@
-# errors.log
-2023-09-03 21:32:13 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
-2023-09-03 21:32:15 [ERROR]: An error occurred: Enter numerical option
-2023-09-03 21:32:15 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
-2023-09-03 21:33:18 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
-2023-09-03 21:33:23 [INFO]: An error occurred: Keyboard Interrupt Ctrl+Z
+2023-09-04 03:49:08 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 03:49:33 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 03:50:06 [INFO]: An error occurred: Keyboard Interrupt Ctrl+Z
+2023-09-04 03:56:46 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 03:58:20 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:02:31 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:03:10 [ERROR]: An error occurred: Enter the number of the correct option.
+2023-09-04 04:03:20 [ERROR]: An error occurred: Enter the number of the correct option.
+2023-09-04 04:03:29 [ERROR]: An error occurred: Enter numerical option.
+2023-09-04 04:03:34 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:03:50 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:04:27 [ERROR]: An error occurred: Enter the number of the correct option.
+2023-09-04 04:04:39 [ERROR]: An error occurred: Enter numerical option.
+2023-09-04 04:04:49 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:06:32 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:07:02 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C
+2023-09-04 04:08:36 [ERROR]: An error occurred: Enter the number of the correct option.
+2023-09-04 04:08:45 [INFO]: An error occurred: Keyboard Interrupt Ctrl+C

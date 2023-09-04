@@ -9,10 +9,10 @@
 from restaurantsystem import RestaurantOrderSystem
 from usermanager import UserManager
 from tabulate import tabulate
-import logging_utils
+import logs_utils
 
 # Set up logging for error handling
-logging_utils.setup_logging()
+logs_utils.setup_logging()
 
 # Define the 'Admin' class, which extends 'UserManager'
 class Admin(UserManager):
@@ -32,7 +32,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while adding menu item:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to delete a menu item from the system
     def delete_menu(self):
@@ -54,7 +54,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while deleting menu item:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to delete a user from the system
     def delete_user(self):
@@ -76,7 +76,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while deleting user:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to update the name of a menu item
     def update_menu(self):
@@ -100,7 +100,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while updating menu item:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to update the price of a menu item
     def update_price(self):
@@ -124,7 +124,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while updating menu price:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to fetch and display user information
     def user_info(self):
@@ -137,7 +137,7 @@ class Admin(UserManager):
 
         except Exception as e:
             print("An error occurred while fetching user information:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to display menu information
     def menu_info(self):

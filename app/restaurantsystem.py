@@ -9,9 +9,17 @@ from colorama import Fore as color
 from tabulate import tabulate
 from datetime import datetime
 import uuid
-import logging_utils
+import logs_utils
+import os
 
-logging_utils.setup_logging()
+logs_utils.setup_logging()
+
+# Define the paths and directories for the application
+app_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data'))
+user_folder = os.path.expanduser("~")
+current_directory = os.getcwd()
+invoice_file = "invoice.txt"
+invoice_path = os.path.join(current_directory, app_dir, invoice_file)
 
 def generate_order_id():
     return str(uuid.uuid4().hex)[:8]  # Generate an 8-character alphanumeric ID
@@ -47,7 +55,7 @@ class RestaurantOrderSystem():
         except Exception as e:
             print("An error occurred:", e)
             # Log the error
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     def customer_menu(self):
         self.selected_items = []  # Initialize an empty list for selected menu items
@@ -102,7 +110,7 @@ class RestaurantOrderSystem():
             print("*" * 50)
             print("Exiting the Program...")
             print("*" * 50)
-            logging_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
+            logs_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
             exit()
         
     def calculate_total_price(self, selected_items):
@@ -123,7 +131,7 @@ class RestaurantOrderSystem():
 
         except Exception as e:
             print("An error occurred:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     def salutation_customer(self):
         # Welcome and ask for the customer's name
@@ -155,7 +163,7 @@ class RestaurantOrderSystem():
                 print("\n")
                 print("*"*50)
                 print("Please enter a numeric value")
-                logging_utils.log_info(f"An error occurred: Enter numeric value")
+                logs_utils.log_info(f"An error occurred: Enter numeric value")
                 print("*"*50)
 
             except KeyboardInterrupt:
@@ -163,7 +171,7 @@ class RestaurantOrderSystem():
                 print("*"*50)
                 print("Exiting the Program...")
                 print("*"*50)
-                logging_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
+                logs_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
                 exit()
 
     def waitress_tip(self):
@@ -188,7 +196,7 @@ class RestaurantOrderSystem():
 
             except ValueError:
                 print("Please enter a numeric value")
-                logging_utils.log_info(f"An error occurred: Enter a $ value for waitress tip!")
+                logs_utils.log_info(f"An error occurred: Enter a $ value for waitress tip!")
             
 
     def invoice(self, selected_items):
@@ -251,9 +259,8 @@ class RestaurantOrderSystem():
 
                 # Print the invoice table
                 print(invoice_table)
-
                 # Save the invoice table to a file (optional)
-                with open("data/invoice.txt", "w") as file:
+                with open(invoice_path, "w") as file:
                     file.write(invoice_table)
             
             else:

@@ -9,12 +9,12 @@
 # Import necessary modules
 import bcrypt
 import pwinput
-import logging_utils
+import logs_utils
 import string
 import random
 
 # Set up logging for error handling
-logging_utils.setup_logging()
+logs_utils.setup_logging()
 
 # Function to generate a random password
 def generate_random_password(length=10):
@@ -56,7 +56,7 @@ class UserManager:
             
             except Exception as e:
                 print("An error occurred:", e)
-                logging_utils.log_error(f"An error occurred: {e}")
+                logs_utils.log_error(f"An error occurred: {e}")
         
         if max_attempts == 0:
             print("Too many incorrect attempts. Returning to the main menu.")
@@ -78,7 +78,7 @@ class UserManager:
         
         except Exception as e:
             print("An error occurred while adding user:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to update a user's username
     def update_username(self):
@@ -149,7 +149,7 @@ class UserManager:
 
         except Exception as e:
             print("An error occurred while resetting password:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     # Method to delete a user account
     def delete_account(self):
@@ -173,7 +173,7 @@ class UserManager:
 
         except Exception as e:
             print("An error occurred while deleting the account:", e)
-            logging_utils.logging.error(f"An error occurred: {e}")
+            logs_utils.logging.error(f"An error occurred: {e}")
     
     # Method to log out a user
     def log_out(self):
@@ -189,7 +189,7 @@ class UserManager:
 
         except Exception as e:
             print("An error occurred during logout:", e)
-            logging_utils.logging.error(f"An error occurred: {e}")
+            logs_utils.logging.error(f"An error occurred: {e}")
 
 # Define the 'Guest' class for guest sessions
 class Guest(UserManager):

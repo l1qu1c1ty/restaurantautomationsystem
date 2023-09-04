@@ -14,9 +14,9 @@ from usermanager import Guest
 from colorama import Fore as color
 from pyfiglet import figlet_format as figlet
 from tabulate import tabulate
-import logging_utils
+import logs_utils
 
-logging_utils.setup_logging()
+logs_utils.setup_logging()
 
 class RestaurantOrderInterface:
     # Initialize the interface with database manager and various system components.
@@ -39,10 +39,11 @@ class RestaurantOrderInterface:
                     break
                 else:
                     print("Error! Please enter a valid option number.")
-                    logging_utils.log_error(f"An error occurred: Enter numerical option")
+                    logs_utils.log_error(f"An error occurred: Enter the number of the correct option.")
+                    
             else:
                 print("Error! Please enter a valid number.")
-                logging_utils.log_error(f"An error occurred: Enter numerical option")
+                logs_utils.log_error(f"An error occurred: Enter numerical option.")
 
     # Start the main option menu for users.
     def start_option(self):

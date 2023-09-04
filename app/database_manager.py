@@ -3,9 +3,9 @@
 # and executing SQL queries.
 
 import sqlite3
-import logging_utils
+import logs_utils
 
-logging_utils.setup_logging()
+logs_utils.setup_logging()
 
 class DatabaseManager():
     def __init__(self, database_name):
@@ -19,7 +19,7 @@ class DatabaseManager():
         
         except sqlite3.Error as e:
             print("An error occurred while connecting:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
     def disconnect(self):
         try:
@@ -29,7 +29,7 @@ class DatabaseManager():
         
         except sqlite3.Error as e:
             print("An error occurred while disconnecting:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
     
     def execute_query(self, query, params=None):
         try:
@@ -46,7 +46,7 @@ class DatabaseManager():
         
         except sqlite3.Error as e:
             print("An error occurred while executing a query:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
     
     def fetch_all(self, query, values=None):
         try:
@@ -65,7 +65,7 @@ class DatabaseManager():
         
         except sqlite3.Error as e:
             print("An error occurred while fetching data:", e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
     
     def commit(self):
         # Commit any pending changes to the database

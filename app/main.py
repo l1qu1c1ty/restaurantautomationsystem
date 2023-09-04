@@ -11,10 +11,10 @@ from os import system as command
 from database_manager import DatabaseManager
 from restaurant_interface import RestaurantOrderInterface
 from colorama import Fore as color
-import logging_utils
+import logs_utils
 import os
 
-logging_utils.setup_logging()
+logs_utils.setup_logging()
 
 # Define the paths and directories for the application
 app_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data'))
@@ -79,20 +79,20 @@ class RunSystem:
         except KeyboardInterrupt as e:
             print("\n")
             print("Exiting the Program...")
-            logging_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
+            logs_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+C")
 
         except EOFError as e:
             print("\n")
             print("Exiting the Program...")
-            logging_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+Z")
+            logs_utils.log_info(f"An error occurred: Keyboard Interrupt Ctrl+Z")
 
         except ValueError:
             print("Enter numerical option")
-            logging_utils.log_error(f"An error occurred: Enter numerical option")
+            logs_utils.log_error(f"An error occurred: Enter numerical option")
 
         except Exception as e:
             print(e)
-            logging_utils.log_error(f"An error occurred: {e}")
+            logs_utils.log_error(f"An error occurred: {e}")
 
 # Define the main function to run the restaurant automation system
 def main():
